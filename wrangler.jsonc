@@ -2,6 +2,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "jarrayrentcar",
   "compatibility_date": "2026-10-01",
+  // Serve on jarrayrentcar.<subdomain>.workers.dev (until a custom domain is added)
+  "workers_dev": true,
   // Wrangler runs this before every deploy, so dist/ always exists
   "build": {
     "command": "npm run build"
