@@ -8,21 +8,23 @@ import { EN, DYN } from "../data/i18n.js";
   let lang = "fr";
   try { lang = localStorage.getItem("lang") || "fr"; } catch {}
   const t = () => DYN[lang];
+  const carById = (id) => CARS.find((c) => c.id === id);
 
   // ---------- i18n ----------
   const original = new Map();
-  $$("[data-i18n], [data-i18n-html]").forEach((el) => original.set(el, el.innerHTML));
+  $$("[data-i18n]").forEach((el) => original.set(el, el.innerHTML));
 
   function applyLang() {
     document.documentElement.lang = lang;
     $("#langToggle").textContent = lang === "fr" ? "EN" : "FR";
     original.forEach((html, el) => {
-      const key = el.dataset.i18n || el.dataset.i18nHtml;
+      const key = el.dataset.i18n;
       el.innerHTML = lang === "en" && EN[key] ? EN[key] : html;
     });
     renderCars();
     fillCarSelect();
     updateSummary();
+    showCar(frontCar);
   }
 
   $("#langToggle").addEventListener("click", () => {
@@ -59,8 +61,11 @@ import { EN, DYN } from "../data/i18n.js";
   function renderCars() {
     const d = t();
     const list = CARS.filter((c) => filter === "all" || c.category === filter);
-    $("#carGrid").innerHTML = list.map((c, i) => `
-      <article class="car" style="animation-delay:${i * 60}ms">
+    $("#carCount").textContent = `${list.length} ${d.cars}`;
+    $("#carGrid").innerHTML = list.map((c, i) => {
+      const on = c.id === form.car.value;
+      return `
+      <article class="car${on ? " is-selected" : ""}" style="animation-delay:${i * 50}ms">
         <div class="car__img">
           <img src="${c.image}" alt="${c.name}" loading="lazy">
           <span class="car__tag">${d.cat[c.category]}</span>
@@ -68,17 +73,15 @@ import { EN, DYN } from "../data/i18n.js";
         <div class="car__body">
           <h3>${c.name}</h3>
           <div class="specs">
-            <span>👤 ${c.seats} ${d.seats}</span>
-            <span>⚙️ ${d[c.gearbox]}</span>
-            <span>⛽ ${d[c.fuel]}</span>
-            ${c.ac ? `<span>❄️ ${d.ac}</span>` : ""}
+            <span>${c.seats} ${d.seats}</span><span>${d[c.gearbox]}</span><span>${d[c.fuel]}</span>${c.ac ? `<span>${d.ac}</span>` : ""}
           </div>
           <div class="car__foot">
-            <div class="price"><b>${c.price} ${AGENCY.currency}</b> <span>${d.perDay}</span></div>
-            <button class="btn btn--primary btn--sm" data-book="${c.id}">${d.book}</button>
+            <div class="price"><b>${c.price}</b> <span>${AGENCY.currency} ${d.perDay}</span></div>
+            <button class="pick" data-book="${c.id}">${on ? d.selected : d.choose}</button>
           </div>
         </div>
-      </article>`).join("");
+      </article>`;
+    }).join("");
   }
 
   $("#filters").addEventListener("click", (e) => {
@@ -89,18 +92,28 @@ import { EN, DYN } from "../data/i18n.js";
     renderCars();
   });
 
+  function selectCar(id) {
+    form.car.value = id;
+    renderCars();
+    updateSummary();
+    const panel = $("#booking");
+    const r = panel.getBoundingClientRect();
+    // Only scroll when the panel isn't already visible (mobile / showroom)
+    if (r.top > innerHeight - 120 || r.bottom < 120) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    panel.classList.remove("flash");
+    void panel.offsetWidth;
+    panel.classList.add("flash");
+  }
+
   $("#carGrid").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-book]");
-    if (!btn) return;
-    form.car.value = btn.dataset.book;
-    updateSummary();
-    $("#booking").scrollIntoView({ behavior: "smooth" });
+    if (btn) selectCar(btn.dataset.book);
   });
 
   function fillCarSelect() {
     const current = form.car.value;
     form.car.innerHTML = `<option value="">${t().select}</option>` +
-      CARS.map((c) => `<option value="${c.id}">${c.name} — ${c.price} ${AGENCY.currency}${t().perDay}</option>`).join("");
+      CARS.map((c) => `<option value="${c.id}">${c.name} — ${c.price} ${AGENCY.currency}</option>`).join("");
     form.car.value = current;
   }
 
@@ -125,23 +138,26 @@ import { EN, DYN } from "../data/i18n.js";
   }
 
   function updateSummary() {
-    const car = CARS.find((c) => c.id === form.car.value);
+    const car = carById(form.car.value);
     const days = getDays();
     const d = t();
-    $("#summaryCar").innerHTML = car
-      ? `<img src="${car.image}" alt=""><span>${car.name}</span>`
-      : `<span>${lang === "en" ? EN["book.noCar"] : "Aucune voiture sélectionnée"}</span>`;
-    $("#sumDays").textContent = days ? `${days} ${days > 1 ? d.days : d.day}` : "—";
-    $("#sumPrice").textContent = car ? `${car.price} ${AGENCY.currency}` : "—";
-    $("#sumTotal").textContent = car && days ? `${car.price * days} ${AGENCY.currency}` : "—";
+    const cur = AGENCY.currency;
+    $("#sumName").textContent = car ? car.name : d.noCar;
+    $("#sumMeta").textContent = car ? `${d.cat[car.category]} · ${d[car.gearbox]} · ${d[car.fuel]}` : "";
+    $("#sumLine").textContent = car && days ? `${car.price} ${cur} × ${days} ${days > 1 ? d.days : d.day}` : "—";
+    $("#sumSub").textContent = car && days ? `${car.price * days} ${cur}` : "—";
+    $("#sumTotal").textContent = car && days ? `${car.price * days} ${cur}` : "—";
   }
   form.addEventListener("input", updateSummary);
-  form.addEventListener("change", updateSummary);
+  form.addEventListener("change", (e) => {
+    updateSummary();
+    if (e.target === form.car) renderCars();
+  });
 
   // ---------- Submit ----------
   function buildMessage() {
     const d = t();
-    const car = CARS.find((c) => c.id === form.car.value);
+    const car = carById(form.car.value);
     const days = getDays();
     const f = form;
     return [
@@ -184,9 +200,47 @@ import { EN, DYN } from "../data/i18n.js";
     location.href = `mailto:${AGENCY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage().replace(/\*/g, ""))}`;
   });
 
-  // ---------- Header, menu, reveal ----------
-  const header = $("#header");
-  const onScroll = () => header.classList.toggle("is-scrolled", scrollY > 30);
+  // ---------- 3D showroom (three.js loaded only when it nears the screen) ----------
+  let showroom = null;
+  let frontCar = CARS[0];
+  const showEl = $("#showroom");
+
+  function showCar(car) {
+    frontCar = car;
+    $("#showCat").textContent = t().cat[car.category];
+    $("#showName").textContent = car.name;
+    $("#showPrice").textContent = car.price;
+  }
+  showCar(frontCar);
+  $("#showPick").addEventListener("click", () => selectCar(frontCar.id));
+
+  const showIO = new IntersectionObserver(async ([entry]) => {
+    if (!entry.isIntersecting || showroom) return;
+    showIO.disconnect();
+    try {
+      const { createShowroom } = await import("./showroom.js");
+      showroom = createShowroom($("#stage"), CARS, {
+        onChange: showCar,
+        onPick: (car) => selectCar(car.id),
+        onTouch: () => showEl.classList.add("is-touched"),
+      });
+      $("#showPrev").addEventListener("click", () => showroom.step(-1));
+      $("#showNext").addEventListener("click", () => showroom.step(1));
+    } catch (err) {
+      console.warn("3D showroom disabled:", err);
+      showEl.classList.add("no-webgl");
+      // Without WebGL the arrows still cycle through the cars
+      let i = 0;
+      const cycle = (n) => { i = (i + n + CARS.length) % CARS.length; showCar(CARS[i]); };
+      $("#showPrev").addEventListener("click", () => cycle(-1));
+      $("#showNext").addEventListener("click", () => cycle(1));
+    }
+  }, { rootMargin: "300px" });
+  showIO.observe(showEl);
+
+  // ---------- Header, menu ----------
+  const bar = $("#bar");
+  const onScroll = () => bar.classList.toggle("is-scrolled", scrollY > 10);
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
@@ -194,15 +248,9 @@ import { EN, DYN } from "../data/i18n.js";
   const toggleMenu = (open) => {
     nav.classList.toggle("is-open", open);
     burger.classList.toggle("is-open", open);
-    header.classList.toggle("menu-open", open);
   };
   burger.addEventListener("click", () => toggleMenu(!nav.classList.contains("is-open")));
   $$("a", nav).forEach((a) => a.addEventListener("click", () => toggleMenu(false)));
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); } });
-  }, { threshold: 0.12 });
-  $$(".reveal").forEach((el) => io.observe(el));
 
   applyLang();
 })();
