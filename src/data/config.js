@@ -10,7 +10,7 @@ export const AGENCY = {
   address: "Houmt Souk, Djerba, Tunisie",
   mapQuery: "Houmt Souk Djerba",   // used for the Google Maps embed
   instagram: "#",
-  facebook: "#",
+  facebook: "https://www.facebook.com/profile.php?id=61589340667273",
   currency: "DT",
   // Cloudflare dashboard → Analytics & Logs → Web Analytics → Add site → copy the token
   cfAnalyticsToken: "",            // TODO: paste token to enable visit statistics
