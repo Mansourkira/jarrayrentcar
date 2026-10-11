@@ -24,7 +24,7 @@ export const EN = {
   "faq.2q": "Is there a deposit?", "faq.2a": "Yes, taken when you collect the keys and returned when the car is brought back.",
   "faq.3q": "Can I leave the island?", "faq.3a": "Yes, anywhere in Tunisia. Just tell us when booking.",
   "faq.4q": "How do I pay?", "faq.4a": "Cash (DT, €) or card when you pick up the car.",
-  "contact.title": "Contact", "contact.hours": "Open 7/7 · 08:00 – 22:00",
+  "contact.title": "Contact", "contact.hours": "Open 24/7",
 };
 
 // Strings used by main.js

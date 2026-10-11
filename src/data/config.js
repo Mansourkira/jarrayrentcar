@@ -4,11 +4,11 @@
 
 export const AGENCY = {
   name: "Jarray Rent Car",
-  phone: "+216 00 000 000",        // TODO: real phone number
-  whatsapp: "21600000000",         // TODO: international format, digits only (no +, no spaces)
-  email: "contact@jarrayrentcar.tn", // TODO: real email
-  address: "Houmt Souk, Djerba, Tunisie",
-  mapQuery: "Houmt Souk Djerba",   // used for the Google Maps embed
+  phone: "+216 50 733 299",
+  whatsapp: "21650733299",         // TODO: confirm this number is on WhatsApp
+  email: "jarrayrent@gmail.com",
+  address: "Avenue Habib Thameur, Houmt Souk 4180, Djerba",
+  mapQuery: "VVH9+QG Houmt Souk",  // Google plus code of the agency, used for the map
   instagram: "#",
   facebook: "https://www.facebook.com/profile.php?id=61589340667273",
   currency: "DT",
