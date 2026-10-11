@@ -18,7 +18,7 @@ export const EN = {
   "how.1t": "Choose", "how.1p": "A car, your dates, the pickup location.",
   "how.2t": "Confirm", "how.2p": "We confirm by WhatsApp or phone.",
   "how.3t": "Drive", "how.3p": "Keys handed over at the airport or your hotel.",
-  "how.docs": "Docs", "how.4t": "Bring", "how.4p": "Licence held 2+ years, ID, deposit.",
+  "rules.title": "Rental conditions", "rules.sub": "Everything is clear before you book: no hidden fees.",
   "faq.title": "Frequently asked questions",
   "faq.1q": "What documents do I need?", "faq.1a": "A driving licence held for at least 2 years and an ID (ID card or passport).",
   "faq.2q": "Is there a deposit?", "faq.2a": "Yes, taken when you collect the keys and returned when the car is brought back.",
@@ -38,6 +38,17 @@ export const DYN = {
     errDates: "La date de retour doit être après la date de départ.",
     msgTitle: "Nouvelle réservation", msgCar: "Voiture", msgFrom: "Départ", msgTo: "Retour",
     msgName: "Nom", msgPhone: "Téléphone", msgEmail: "E-mail", msgNotes: "Message", msgTotal: "Total estimé",
+    msgRef: "Réf", msgSource: "Source", hello: "Bonjour, je souhaite louer une voiture.",
+    // R = RENTAL from config.js, m(v) formats a price ("10 DT" / "Offert" / placeholder)
+    rules: (R, m) => [
+      { t: "Caution", p: `${m(R.deposit)} bloqués à la remise des clés, restitués au retour du véhicule.` },
+      { t: "Âge & permis", p: `${R.minAge} ans minimum, permis depuis ${R.licenceYears} ans, pièce d'identité (CIN ou passeport).` },
+      { t: "Assurance", p: `Assurance incluse dans le prix. Franchise en cas de dommage : ${m(R.insuranceExcess)}.` },
+      { t: "Carburant", p: R.fuel === "full" ? "Remis avec le plein, à rendre avec le plein." : "À rendre avec le même niveau de carburant qu'au départ." },
+      { t: "Options", p: `Conducteur supplémentaire : ${m(R.extraDriver)} / jour. Siège bébé : ${m(R.babySeat)} / jour.` },
+      { t: "Livraison", p: `Aéroport Djerba-Zarzis offert. Hôtel ou autre adresse : ${m(R.delivery)}.` },
+    ],
+    free: "Offert",
   },
   en: {
     perDay: "/ day", choose: "Choose", selected: "Selected", day: "day", days: "days", select: "— Choose a car —",
@@ -48,5 +59,15 @@ export const DYN = {
     errDates: "Return date must be after pickup date.",
     msgTitle: "New booking", msgCar: "Car", msgFrom: "Pickup", msgTo: "Return",
     msgName: "Name", msgPhone: "Phone", msgEmail: "Email", msgNotes: "Message", msgTotal: "Estimated total",
+    msgRef: "Ref", msgSource: "Source", hello: "Hello, I would like to rent a car.",
+    rules: (R, m) => [
+      { t: "Deposit", p: `${m(R.deposit)} held at key handover, returned when the car is brought back.` },
+      { t: "Age & licence", p: `Minimum age ${R.minAge}, licence held for ${R.licenceYears} years, ID card or passport.` },
+      { t: "Insurance", p: `Insurance included in the price. Excess in case of damage: ${m(R.insuranceExcess)}.` },
+      { t: "Fuel", p: R.fuel === "full" ? "Delivered full, return it full." : "Return it with the same fuel level as at pickup." },
+      { t: "Extras", p: `Additional driver: ${m(R.extraDriver)} / day. Baby seat: ${m(R.babySeat)} / day.` },
+      { t: "Delivery", p: `Djerba-Zarzis airport free. Hotel or other address: ${m(R.delivery)}.` },
+    ],
+    free: "Free",
   },
 };

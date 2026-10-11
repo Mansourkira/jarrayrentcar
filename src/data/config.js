@@ -12,6 +12,21 @@ export const AGENCY = {
   instagram: "#",
   facebook: "#",
   currency: "DT",
+  // Cloudflare dashboard → Analytics & Logs → Web Analytics → Add site → copy the token
+  cfAnalyticsToken: "",            // TODO: paste token to enable visit statistics
+};
+
+// Rental conditions shown in the "Conditions" section — TODO: confirm every value with the agency
+const TODO = "[À CONFIRMER]";
+export const RENTAL = {
+  deposit: TODO,          // e.g. "500" (DT)
+  minAge: TODO,           // e.g. "21"
+  licenceYears: "2",
+  insuranceExcess: TODO,  // franchise in DT (what the client pays max. in case of damage)
+  fuel: "same",           // "same" = return with the same fuel level, "full" = full-to-full
+  extraDriver: TODO,      // price per day in DT, e.g. "10" — or "0" if free
+  babySeat: TODO,         // price per day in DT
+  delivery: TODO,         // delivery outside the airport, e.g. "0" or "20"
 };
 
 // Pickup / return locations shown in the booking form

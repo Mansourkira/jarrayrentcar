@@ -1,4 +1,5 @@
-import { AGENCY, LOCATIONS, CARS } from "../data/config.js";
+import { AGENCY, LOCATIONS, CARS, RENTAL } from "../data/config.js";
+import { getSource, makeRef } from "./tracking.js";
 import { EN, DYN } from "../data/i18n.js";
 
 (() => {
@@ -24,6 +25,8 @@ import { EN, DYN } from "../data/i18n.js";
     renderCars();
     fillCarSelect();
     updateSummary();
+    renderRules();
+    setContactLinks();
     showCar(frontCar);
   }
 
@@ -35,7 +38,19 @@ import { EN, DYN } from "../data/i18n.js";
 
   // ---------- Agency info ----------
   const waLink = (text = "") => `https://wa.me/${AGENCY.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
-  $$(".js-whatsapp").forEach((a) => (a.href = waLink()));
+  // Contact buttons prefill a greeting tagged with the visitor's source
+  function setContactLinks() {
+    const href = waLink(`${t().hello} (${getSource()})`);
+    $$(".js-whatsapp").forEach((a) => (a.href = href));
+  }
+
+  // ---------- Rental conditions (values from RENTAL in config.js) ----------
+  function renderRules() {
+    const d = t();
+    const money = (v) => (String(v).startsWith("[") ? v : String(v) === "0" ? d.free : `${v} ${AGENCY.currency}`);
+    $("#rules").innerHTML = d.rules(RENTAL, money)
+      .map((r) => `<div class="rule"><h3>${r.t}</h3><p>${r.p}</p></div>`).join("");
+  }
   $$(".js-phone").forEach((a) => { a.href = "tel:" + AGENCY.phone.replace(/\s/g, ""); a.textContent = AGENCY.phone; });
   $$(".js-email").forEach((a) => { a.href = "mailto:" + AGENCY.email; a.textContent = AGENCY.email; });
   $$(".js-address").forEach((el) => (el.textContent = AGENCY.address));
@@ -155,13 +170,14 @@ import { EN, DYN } from "../data/i18n.js";
   });
 
   // ---------- Submit ----------
-  function buildMessage() {
+  function buildMessage(ref) {
     const d = t();
     const car = carById(form.car.value);
     const days = getDays();
     const f = form;
     return [
       `🚗 *${d.msgTitle} — ${AGENCY.name}*`,
+      `${d.msgRef}: ${ref}`,
       `${d.msgCar}: ${car.name}`,
       `${d.msgFrom}: ${f.pickupDate.value} ${f.pickupTime.value} — ${f.pickupLoc.value}`,
       `${d.msgTo}: ${f.returnDate.value} ${f.returnTime.value} — ${f.returnLoc.value}`,
@@ -170,6 +186,7 @@ import { EN, DYN } from "../data/i18n.js";
       `${d.msgPhone}: ${f.phone.value}`,
       f.email.value && `${d.msgEmail}: ${f.email.value}`,
       f.notes.value && `${d.msgNotes}: ${f.notes.value}`,
+      `${d.msgSource}: ${getSource()}`,
     ].filter(Boolean).join("\n");
   }
 
@@ -190,14 +207,15 @@ import { EN, DYN } from "../data/i18n.js";
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validate()) return;
-    window.open(waLink(buildMessage()), "_blank");
+    window.open(waLink(buildMessage(makeRef())), "_blank");
   });
 
   $("#mailFallback").addEventListener("click", (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const subject = `${t().msgTitle} — ${AGENCY.name}`;
-    location.href = `mailto:${AGENCY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage().replace(/\*/g, ""))}`;
+    const ref = makeRef();
+    const subject = `${t().msgTitle} ${ref} — ${AGENCY.name}`;
+    location.href = `mailto:${AGENCY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage(ref).replace(/\*/g, ""))}`;
   });
 
   // ---------- 3D showroom (three.js loaded only when it nears the screen) ----------

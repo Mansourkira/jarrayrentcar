@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { AGENCY } from "../data/config.js";
 const {
   title = "Jarray Rent Car — Location de voitures à Djerba",
   description = "Location de voitures à Djerba, Tunisie. Livraison à l'aéroport et à l'hôtel, voitures récentes, prix transparents. Réservez en ligne en 2 minutes.",
@@ -18,6 +19,9 @@ const {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  {AGENCY.cfAnalyticsToken && (
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: AGENCY.cfAnalyticsToken })}></script>
+  )}
 </head>
 <body>
   <slot />

@@ -146,6 +146,15 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .how h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .how__grid p:last-child { color: var(--muted); font-size: .95rem; }
 
+/* ---------- Rental conditions ---------- */
+.rules { padding: 64px 0 8px; }
+.rules__head { margin-bottom: 22px; }
+.rules__head p { margin-top: 4px; }
+.rules__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.rule { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.rule h3 { font-size: 1rem; margin-bottom: 6px; }
+.rule p { color: var(--muted); font-size: .93rem; }
+
 /* ---------- FAQ / contact ---------- */
 .faqwrap { display: flex; flex-wrap: wrap; gap: 40px; padding: 56px 0 72px; }
 .faqs { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }

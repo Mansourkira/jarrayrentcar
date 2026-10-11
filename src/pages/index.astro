@@ -10,7 +10,7 @@ import Layout from "../layouts/Layout.astro";
         <nav class="nav" id="nav">
           <a href="#showroom" data-i18n="nav.showroom">Showroom</a>
           <a href="#fleet" data-i18n="nav.fleet">Voitures</a>
-          <a href="#how" data-i18n="nav.how">Conditions</a>
+          <a href="#conditions" data-i18n="nav.how">Conditions</a>
           <a href="#faq" data-i18n="nav.faq">FAQ</a>
           <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
@@ -120,14 +120,22 @@ import Layout from "../layouts/Layout.astro";
       </aside>
     </section>
 
-    <!-- ===== HOW / CONDITIONS ===== -->
-    <section class="how" id="how">
+    <!-- ===== HOW ===== -->
+    <section class="how">
       <div class="container how__grid">
         <div><p class="how__n">01</p><h3 data-i18n="how.1t">Choisissez</h3><p data-i18n="how.1p">Une voiture, vos dates, le lieu de prise en charge.</p></div>
         <div><p class="how__n">02</p><h3 data-i18n="how.2t">Confirmez</h3><p data-i18n="how.2p">Nous confirmons par WhatsApp ou téléphone.</p></div>
         <div><p class="how__n">03</p><h3 data-i18n="how.3t">Roulez</h3><p data-i18n="how.3p">Clés remises à l'aéroport ou à votre hôtel.</p></div>
-        <div><p class="how__n" data-i18n="how.docs">Docs</p><h3 data-i18n="how.4t">À prévoir</h3><p data-i18n="how.4p">Permis de plus de 2 ans, pièce d'identité, caution.</p></div>
       </div>
+    </section>
+
+    <!-- ===== RENTAL CONDITIONS (values in src/data/config.js → RENTAL) ===== -->
+    <section class="container rules" id="conditions">
+      <div class="rules__head">
+        <h2 data-i18n="rules.title">Conditions de location</h2>
+        <p class="muted" data-i18n="rules.sub">Tout est clair avant de réserver : pas de frais cachés.</p>
+      </div>
+      <div class="rules__grid" id="rules"></div>
     </section>
 
     <!-- ===== FAQ + CONTACT ===== -->
