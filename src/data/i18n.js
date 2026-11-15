@@ -18,6 +18,7 @@ export const EN = {
   "how.1t": "Choose", "how.1p": "A car, your dates, the pickup location.",
   "how.2t": "Confirm", "how.2p": "We confirm by WhatsApp or phone.",
   "how.3t": "Drive", "how.3p": "Keys handed over at the airport or your hotel.",
+  "gal.title": "Our cars, for real", "gal.sub": "Photos and videos of the Jarray Rent Car fleet in Djerba.", "gal.videos": "Videos",
   "rules.title": "Rental conditions", "rules.sub": "Everything is clear before you book: no hidden fees.",
   "faq.title": "Frequently asked questions",
   "faq.1q": "What documents do I need?", "faq.1a": "A driving licence held for at least 2 years and an ID (ID card or passport).",
@@ -32,7 +33,7 @@ export const DYN = {
   fr: {
     perDay: "/ jour", choose: "Choisir", selected: "Sélectionnée", day: "jour", days: "jours", select: "— Choisir une voiture —",
     noCar: "Choisissez une voiture", cars: "voitures disponibles",
-    seats: "places", auto: "Automatique", manual: "Manuelle", essence: "Essence", diesel: "Diesel", ac: "Clim",
+    seats: "places", deposit: "Caution", auto: "Automatique", manual: "Manuelle", essence: "Essence", diesel: "Diesel", ac: "Clim",
     cat: { eco: "Économique", compact: "Compacte", suv: "SUV", premium: "Premium" },
     errRequired: "Merci de remplir tous les champs obligatoires.",
     errDates: "La date de retour doit être après la date de départ.",
@@ -53,7 +54,7 @@ export const DYN = {
   en: {
     perDay: "/ day", choose: "Choose", selected: "Selected", day: "day", days: "days", select: "— Choose a car —",
     noCar: "Choose a car", cars: "cars available",
-    seats: "seats", auto: "Automatic", manual: "Manual", essence: "Petrol", diesel: "Diesel", ac: "A/C",
+    seats: "seats", deposit: "Deposit", auto: "Automatic", manual: "Manual", essence: "Petrol", diesel: "Diesel", ac: "A/C",
     cat: { eco: "Economy", compact: "Compact", suv: "SUV", premium: "Premium" },
     errRequired: "Please fill in all required fields.",
     errDates: "Return date must be after pickup date.",

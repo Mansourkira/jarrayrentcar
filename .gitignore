@@ -3,3 +3,4 @@ dist/
 .astro/
 .wrangler/
 .env
+media-originals/

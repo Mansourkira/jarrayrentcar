@@ -88,7 +88,7 @@ import { EN, DYN } from "../data/i18n.js";
         <div class="car__body">
           <h3>${c.name}</h3>
           <div class="specs">
-            <span>${c.seats} ${d.seats}</span><span>${d[c.gearbox]}</span><span>${d[c.fuel]}</span>${c.ac ? `<span>${d.ac}</span>` : ""}
+            <span>${c.seats} ${d.seats}</span><span>${d[c.gearbox]}</span><span>${d.deposit} ${c.deposit} ${AGENCY.currency}</span>${c.fuel ? `<span>${d[c.fuel]}</span>` : ""}${c.ac ? `<span>${d.ac}</span>` : ""}
           </div>
           <div class="car__foot">
             <div class="price"><b>${c.price}</b> <span>${AGENCY.currency} ${d.perDay}</span></div>
@@ -158,7 +158,7 @@ import { EN, DYN } from "../data/i18n.js";
     const d = t();
     const cur = AGENCY.currency;
     $("#sumName").textContent = car ? car.name : d.noCar;
-    $("#sumMeta").textContent = car ? `${d.cat[car.category]} · ${d[car.gearbox]} · ${d[car.fuel]}` : "";
+    $("#sumMeta").textContent = car ? `${d.cat[car.category]} · ${d[car.gearbox]}${car.fuel ? ` · ${d[car.fuel]}` : ""} · ${d.deposit} ${car.deposit} ${AGENCY.currency}` : "";
     $("#sumLine").textContent = car && days ? `${car.price} ${cur} × ${days} ${days > 1 ? d.days : d.day}` : "—";
     $("#sumSub").textContent = car && days ? `${car.price * days} ${cur}` : "—";
     $("#sumTotal").textContent = car && days ? `${car.price * days} ${cur}` : "—";
