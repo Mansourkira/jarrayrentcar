@@ -211,3 +211,28 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .done p { color: var(--muted); }
 .done__ref b { color: var(--ink); letter-spacing: .06em; }
 .panel__form[hidden] { display: none; }
+
+/* ---------- Custom dropdown (src/scripts/select.js) ---------- */
+.cs__native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cs { position: relative; width: 100%; }
+.cs__btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; cursor: pointer;
+  border: 0; background: transparent; padding: 2px 0; font-size: 1rem; font-weight: 600; color: var(--ink); }
+.cs__btn::after { content: ""; flex: none; width: 18px; height: 18px; background: no-repeat center / 18px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a6b73' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); transition: transform .2s; }
+.cs.is-open .cs__btn::after { transform: rotate(180deg); }
+.cs__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+.cs__btn.is-placeholder { color: var(--muted); font-weight: 500; }
+.cs__btn.invalid { color: #b42318; }
+.panel .cs__btn { border: 1.5px solid var(--line-2); border-radius: 10px; padding: 10px 11px; font-size: .95rem; font-weight: 500; background: #fff; transition: border-color .2s, box-shadow .2s; }
+.panel .cs.is-open .cs__btn, .panel .cs__btn:focus-visible { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(10, 107, 115, .15); }
+.panel .cs__btn.invalid { border-color: #b42318; }
+.cs__list { position: absolute; z-index: 60; left: -6px; right: -6px; top: calc(100% + 8px); margin: 0; padding: 6px; list-style: none; max-height: 280px; overflow-y: auto;
+  background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 44px rgba(11, 22, 32, .22); animation: csIn .14s ease-out; }
+.panel .cs__list { left: 0; right: 0; top: calc(100% + 6px); }
+.cs__list[hidden] { display: none; }
+.cs__list li { position: relative; padding: 11px 38px 11px 12px; border-radius: 9px; cursor: pointer; font-size: .95rem; font-weight: 600; line-height: 1.3; }
+.cs__list li.is-empty { color: var(--muted); font-weight: 500; }
+.cs__list li.is-active { background: #e6f2f3; }
+.cs__list li[aria-selected="true"] { color: var(--accent); font-weight: 800; }
+.cs__list li[aria-selected="true"]::after { content: ""; position: absolute; right: 12px; top: 50%; width: 16px; height: 16px; margin-top: -8px;
+  background: no-repeat center / 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a6b73' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E"); }
+@keyframes csIn { from { opacity: 0; transform: translateY(-4px); } }

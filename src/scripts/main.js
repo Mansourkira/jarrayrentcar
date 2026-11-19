@@ -1,5 +1,6 @@
 import { AGENCY, LOCATIONS, CARS, RENTAL } from "../data/config.js";
 import { getSource } from "./tracking.js";
+import { enhanceSelects } from "./select.js";
 import { EN, DYN } from "../data/i18n.js";
 
 (() => {
@@ -58,6 +59,8 @@ import { EN, DYN } from "../data/i18n.js";
   $(".js-ig").href = AGENCY.instagram;
   $("#map").src = `https://maps.google.com/maps?q=${encodeURIComponent(AGENCY.mapQuery)}&z=13&output=embed`;
   $("#year").textContent = new Date().getFullYear();
+
+  enhanceSelects();
 
   // ---------- Locations & dates ----------
   $$(".js-locations").forEach((sel) => {
