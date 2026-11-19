@@ -40,7 +40,6 @@ export const LOCATIONS = [
 ];
 
 // Cars — photos live in public/cars. Prices are DT per day. `deposit` = caution (DT).
-// showroomImage (optional) = picture used only in the 3D showroom (stock photos from Wikimedia Commons, CC0)
 // category: "eco" | "compact" | "suv" | "premium"   ·   fuel is optional ("essence" | "diesel")
 export const CARS = [
   {
@@ -48,8 +47,7 @@ export const CARS = [
     name: "Kia Picanto",
     category: "eco",
     price: 100, deposit: 1000,
-    image: "/cars/picanto-1.jpg",
-    showroomImage: "/cars/showroom-picanto.jpg",
+    image: "/cars/picanto-bm.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {
@@ -57,8 +55,7 @@ export const CARS = [
     name: "Kia Picanto",
     category: "eco",
     price: 110, deposit: 1000,
-    image: "/cars/picanto-2.jpg",
-    showroomImage: "/cars/showroom-picanto.jpg",
+    image: "/cars/picanto-bo.jpg",
     seats: 5, doors: 5, gearbox: "auto", ac: true,
   },
   {
@@ -66,8 +63,7 @@ export const CARS = [
     name: "Renault Clio 5",
     category: "compact",
     price: 130, deposit: 1500,
-    image: "/cars/clio-grey-1.jpg",
-    showroomImage: "/cars/showroom-clio.jpg",
+    image: "/cars/clio5-bm.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {
@@ -75,7 +71,7 @@ export const CARS = [
     name: "Geely Emgrand",
     category: "premium",
     price: 160, deposit: 2000,
-    image: "/cars/sedan-3.jpg",
+    image: "/cars/emgrand-bm.jpg",
     seats: 5, doors: 4, gearbox: "manual", ac: true,
   },
 ];
