@@ -39,7 +39,7 @@ export const LOCATIONS = [
   "Livraison à l'hôtel",
 ];
 
-// Cars — photos live in public/media/photos. Prices are DT per day. `deposit` = caution (DT).
+// Cars — photos live in public/cars. Prices are DT per day. `deposit` = caution (DT).
 // category: "eco" | "compact" | "suv" | "premium"   ·   fuel is optional ("essence" | "diesel")
 export const CARS = [
   {
@@ -47,7 +47,7 @@ export const CARS = [
     name: "Kia Picanto",
     category: "eco",
     price: 100, deposit: 1000,
-    image: "/media/photos/picanto-1.jpg",
+    image: "/cars/picanto-1.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {
@@ -55,7 +55,7 @@ export const CARS = [
     name: "Kia Picanto",
     category: "eco",
     price: 110, deposit: 1000,
-    image: "/media/photos/picanto-2.jpg",
+    image: "/cars/picanto-2.jpg",
     seats: 5, doors: 5, gearbox: "auto", ac: true,
   },
   {
@@ -63,7 +63,7 @@ export const CARS = [
     name: "Renault Clio 5",
     category: "compact",
     price: 130, deposit: 1500,
-    image: "/media/photos/clio-grey-1.jpg",
+    image: "/cars/clio-grey-1.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {
@@ -71,7 +71,7 @@ export const CARS = [
     name: "Geely Emgrand",
     category: "premium",
     price: 160, deposit: 2000,
-    image: "/media/photos/sedan-3.jpg",
+    image: "/cars/sedan-3.jpg",
     seats: 5, doors: 4, gearbox: "manual", ac: true,
   },
 ];

@@ -18,7 +18,6 @@ export const EN = {
   "how.1t": "Choose", "how.1p": "A car, your dates, the pickup location.",
   "how.2t": "Confirm", "how.2p": "We confirm by WhatsApp or phone.",
   "how.3t": "Drive", "how.3p": "Keys handed over at the airport or your hotel.",
-  "gal.title": "Our cars, for real", "gal.sub": "Photos and videos of the Jarray Rent Car fleet in Djerba.", "gal.videos": "Videos",
   "rules.title": "Rental conditions", "rules.sub": "Everything is clear before you book: no hidden fees.",
   "faq.title": "Frequently asked questions",
   "faq.1q": "What documents do I need?", "faq.1a": "A driving licence held for at least 2 years and an ID (ID card or passport).",

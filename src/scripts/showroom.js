@@ -38,7 +38,7 @@ function glowTexture() {
   c.width = c.height = 256;
   const ctx = c.getContext("2d");
   const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-  g.addColorStop(0, "rgba(242,181,68,0.35)");
+  g.addColorStop(0, "rgba(95,208,216,0.35)");
   g.addColorStop(0.5, "rgba(10,107,115,0.15)");
   g.addColorStop(1, "rgba(10,107,115,0)");
   ctx.fillStyle = g;

@@ -6,7 +6,7 @@ import Layout from "../layouts/Layout.astro";
   <header class="top" id="top">
     <div class="bar" id="bar">
       <div class="container bar__inner">
-        <a href="#top" class="logo"><span class="logo__mark">J</span>Jarray Rent Car</a>
+        <a href="#top" class="logo"><img class="logo__img" src="/images/logo-192.png" alt="Jarray Rent a Car" width="48" height="48"><span class="logo__txt">Jarray Rent Car</span></a>
         <nav class="nav" id="nav">
           <a href="#showroom" data-i18n="nav.showroom">Showroom</a>
           <a href="#fleet" data-i18n="nav.fleet">Voitures</a>
@@ -126,65 +126,6 @@ import Layout from "../layouts/Layout.astro";
         <div><p class="how__n">01</p><h3 data-i18n="how.1t">Choisissez</h3><p data-i18n="how.1p">Une voiture, vos dates, le lieu de prise en charge.</p></div>
         <div><p class="how__n">02</p><h3 data-i18n="how.2t">Confirmez</h3><p data-i18n="how.2p">Nous confirmons par WhatsApp ou téléphone.</p></div>
         <div><p class="how__n">03</p><h3 data-i18n="how.3t">Roulez</h3><p data-i18n="how.3p">Clés remises à l'aéroport ou à votre hôtel.</p></div>
-      </div>
-    </section>
-
-    <!-- ===== GALLERY ===== -->
-    <section class="container gallery" id="gallery">
-      <div class="rules__head">
-        <h2 data-i18n="gal.title">Nos voitures en vrai</h2>
-        <p class="muted" data-i18n="gal.sub">Photos et vidéos de la flotte Jarray Rent Car à Djerba.</p>
-      </div>
-      <div class="gallery__videos">
-        <video src="/media/videos/reel-1.mp4" poster="/media/videos/reel-1.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-2.mp4" poster="/media/videos/reel-2.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-3.mp4" poster="/media/videos/reel-3.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-4.mp4" poster="/media/videos/reel-4.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-5.mp4" poster="/media/videos/reel-5.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-6.mp4" poster="/media/videos/reel-6.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-7.mp4" poster="/media/videos/reel-7.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-8.mp4" poster="/media/videos/reel-8.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-9.mp4" poster="/media/videos/reel-9.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-10.mp4" poster="/media/videos/reel-10.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-11.mp4" poster="/media/videos/reel-11.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-12.mp4" poster="/media/videos/reel-12.jpg" controls playsinline preload="none"></video>
-        <video src="/media/videos/reel-13.mp4" poster="/media/videos/reel-13.jpg" controls playsinline preload="none"></video>
-      </div>
-      <div class="gallery__photos">
-        <img src="/media/photos/sedan-1.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-2.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-3.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-4.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-5.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-6.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-7.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-8.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/sedan-9.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/picanto-1.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/picanto-2.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/picanto-3.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/picanto-4.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-1.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-2.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-3.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-4.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-5.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-6.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-7.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-8.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-9.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-10.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-11.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-grey-12.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-blue-1.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/clio-blue-2.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-1.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-2.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-3.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-4.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-5.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-6.jpg" alt="Jarray Rent Car" loading="lazy">
-        <img src="/media/photos/fleet-7.jpg" alt="Jarray Rent Car" loading="lazy">
       </div>
     </section>
 
