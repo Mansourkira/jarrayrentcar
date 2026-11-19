@@ -95,7 +95,7 @@ export function createShowroom(container, cars, { onChange, onPick, onTouch }) {
     refl.scale.y = -1;
     refl.position.y = -CARD_H - 0.08;
 
-    loader.load(car.image, (tex) => {
+    loader.load(car.showroomImage || car.image, (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
       cover(tex, CARD_W / CARD_H);

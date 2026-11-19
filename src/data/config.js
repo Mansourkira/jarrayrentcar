@@ -40,6 +40,7 @@ export const LOCATIONS = [
 ];
 
 // Cars — photos live in public/cars. Prices are DT per day. `deposit` = caution (DT).
+// showroomImage (optional) = picture used only in the 3D showroom (stock photos from Wikimedia Commons, CC0)
 // category: "eco" | "compact" | "suv" | "premium"   ·   fuel is optional ("essence" | "diesel")
 export const CARS = [
   {
@@ -48,6 +49,7 @@ export const CARS = [
     category: "eco",
     price: 100, deposit: 1000,
     image: "/cars/picanto-1.jpg",
+    showroomImage: "/cars/showroom-picanto.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {
@@ -56,6 +58,7 @@ export const CARS = [
     category: "eco",
     price: 110, deposit: 1000,
     image: "/cars/picanto-2.jpg",
+    showroomImage: "/cars/showroom-picanto.jpg",
     seats: 5, doors: 5, gearbox: "auto", ac: true,
   },
   {
@@ -64,6 +67,7 @@ export const CARS = [
     category: "compact",
     price: 130, deposit: 1500,
     image: "/cars/clio-grey-1.jpg",
+    showroomImage: "/cars/showroom-clio.jpg",
     seats: 5, doors: 5, gearbox: "manual", ac: true,
   },
   {

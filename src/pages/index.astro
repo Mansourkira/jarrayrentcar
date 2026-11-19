@@ -113,10 +113,17 @@ import Layout from "../layouts/Layout.astro";
             <div class="total__big"><span data-i18n="book.total">Total estimé</span><b id="sumTotal">—</b></div>
           </div>
           <p class="form__error" id="formError" hidden></p>
-          <button class="btn btn--wa btn--block" type="submit" data-i18n="form.submit">Réserver via WhatsApp</button>
-          <a class="form__alt" id="mailFallback" href="#" data-i18n="form.mail">Ou envoyer par e-mail</a>
-          <p class="muted small center" data-i18n="book.note">Confirmation en quelques minutes · paiement à la remise des clés</p>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+          <button class="btn btn--accent btn--block" id="submitBtn" type="submit" data-i18n="form.submit">Envoyer ma demande</button>
+          <p class="muted small center" data-i18n="book.note">Nous vous rappelons rapidement pour confirmer · paiement à la remise des clés</p>
         </form>
+        <div class="done" id="bookingDone" hidden aria-live="polite">
+          <div class="done__icon">✓</div>
+          <h3 id="doneTitle"></h3>
+          <p id="doneText"></p>
+          <p class="done__ref"><span id="doneRefLabel"></span> <b id="doneRef"></b></p>
+          <button class="btn btn--accent" type="button" id="doneAgain"></button>
+        </div>
       </aside>
     </section>
 

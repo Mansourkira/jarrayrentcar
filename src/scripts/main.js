@@ -1,5 +1,5 @@
 import { AGENCY, LOCATIONS, CARS, RENTAL } from "../data/config.js";
-import { getSource, makeRef } from "./tracking.js";
+import { getSource } from "./tracking.js";
 import { EN, DYN } from "../data/i18n.js";
 
 (() => {
@@ -170,26 +170,6 @@ import { EN, DYN } from "../data/i18n.js";
   });
 
   // ---------- Submit ----------
-  function buildMessage(ref) {
-    const d = t();
-    const car = carById(form.car.value);
-    const days = getDays();
-    const f = form;
-    return [
-      `🚗 *${d.msgTitle} — ${AGENCY.name}*`,
-      `${d.msgRef}: ${ref}`,
-      `${d.msgCar}: ${car.name}`,
-      `${d.msgFrom}: ${f.pickupDate.value} ${f.pickupTime.value} — ${f.pickupLoc.value}`,
-      `${d.msgTo}: ${f.returnDate.value} ${f.returnTime.value} — ${f.returnLoc.value}`,
-      `${d.msgTotal}: ${car.price * days} ${AGENCY.currency} (${days} ${days > 1 ? d.days : d.day})`,
-      `${d.msgName}: ${f.name.value}`,
-      `${d.msgPhone}: ${f.phone.value}`,
-      f.email.value && `${d.msgEmail}: ${f.email.value}`,
-      f.notes.value && `${d.msgNotes}: ${f.notes.value}`,
-      `${d.msgSource}: ${getSource()}`,
-    ].filter(Boolean).join("\n");
-  }
-
   function validate() {
     const err = $("#formError");
     let ok = true;
@@ -204,18 +184,55 @@ import { EN, DYN } from "../data/i18n.js";
     return true;
   }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-    window.open(waLink(buildMessage(makeRef())), "_blank");
+  const showDone = (ref) => {
+    const d = t();
+    form.hidden = true;
+    $("#doneTitle").textContent = d.doneTitle;
+    $("#doneText").textContent = d.doneText;
+    $("#doneRefLabel").textContent = d.doneRef;
+    $("#doneRef").textContent = ref;
+    $("#doneAgain").textContent = d.doneAgain;
+    $("#bookingDone").hidden = false;
+    $("#booking").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  $("#doneAgain").addEventListener("click", () => {
+    $("#bookingDone").hidden = true;
+    form.hidden = false;
   });
 
-  $("#mailFallback").addEventListener("click", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const ref = makeRef();
-    const subject = `${t().msgTitle} ${ref} — ${AGENCY.name}`;
-    location.href = `mailto:${AGENCY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage(ref).replace(/\*/g, ""))}`;
+    const btn = $("#submitBtn"), err = $("#formError");
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = t().sending;
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          car: form.car.value,
+          pickupLoc: form.pickupLoc.value, returnLoc: form.returnLoc.value,
+          pickupAt: `${form.pickupDate.value}T${form.pickupTime.value}`,
+          returnAt: `${form.returnDate.value}T${form.returnTime.value}`,
+          name: form.name.value, phone: form.phone.value,
+          email: form.email.value, notes: form.notes.value,
+          website: form.website.value, // honeypot
+          source: getSource(), lang,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || "server");
+      form.reset();
+      form.pickupTime.value = form.returnTime.value = "10:00";
+      showDone(data.ref);
+      updateSummary();
+    } catch {
+      err.textContent = `${t().errServer} ${AGENCY.phone}.`;
+      err.hidden = false;
+    } finally {
+      btn.disabled = false; btn.textContent = label;
+    }
   });
 
   // ---------- 3D showroom (three.js loaded only when it nears the screen) ----------

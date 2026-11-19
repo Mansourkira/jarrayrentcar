@@ -201,3 +201,13 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
   .showroom__car { order: -1; width: 100%; }
   .fleet { padding: 40px 0 56px; }
 }
+
+/* ---------- Booking confirmation ---------- */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.done { padding: 36px 24px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.done[hidden] { display: none; }
+.done__icon { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 2rem; font-weight: 800; display: grid; place-items: center; }
+.done h3 { font-family: var(--display); font-size: 1.4rem; }
+.done p { color: var(--muted); }
+.done__ref b { color: var(--ink); letter-spacing: .06em; }
+.panel__form[hidden] { display: none; }

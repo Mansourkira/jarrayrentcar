@@ -4,3 +4,4 @@ dist/
 .wrangler/
 .env
 media-originals/
+.dev.vars
