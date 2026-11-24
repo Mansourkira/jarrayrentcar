@@ -42,14 +42,20 @@ export const DYN = {
     msgName: "Nom", msgPhone: "Téléphone", msgEmail: "E-mail", msgNotes: "Message", msgTotal: "Total estimé",
     msgRef: "Réf", msgSource: "Source", hello: "Bonjour, je souhaite louer une voiture.",
     // R = RENTAL from config.js, m(v) formats a price ("10 DT" / "Offert" / placeholder)
-    rules: (R, m) => [
-      { t: "Caution", p: `${m(R.deposit)} bloqués à la remise des clés, restitués au retour du véhicule.` },
-      { t: "Âge & permis", p: `${R.minAge} ans minimum, permis depuis ${R.licenceYears} ans, pièce d'identité (CIN ou passeport).` },
-      { t: "Assurance", p: `Assurance incluse dans le prix. Franchise en cas de dommage : ${m(R.insuranceExcess)}.` },
-      { t: "Carburant", p: R.fuel === "full" ? "Remis avec le plein, à rendre avec le plein." : "À rendre avec le même niveau de carburant qu'au départ." },
-      { t: "Options", p: `Conducteur supplémentaire : ${m(R.extraDriver)} / jour. Siège bébé : ${m(R.babySeat)} / jour.` },
-      { t: "Livraison", p: `Aéroport Djerba-Zarzis offert. Hôtel ou autre adresse : ${m(R.delivery)}.` },
-    ],
+    // Unconfirmed values ("[À CONFIRMER]" in config.js) are left out instead of being shown to visitors
+    rules: (R, m) => {
+      const ok = (v) => !String(v).startsWith("[");
+      const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
+      const list = [
+        ok(R.deposit) && { t: "Caution", p: `${m(R.deposit)} bloqués à la remise des clés, restitués au retour du véhicule.` },
+        { t: "Âge & permis", p: cap([ok(R.minAge) && `${R.minAge} ans minimum`, `permis depuis ${R.licenceYears} ans`, "pièce d'identité (CIN ou passeport)"].filter(Boolean).join(", ")) + "." },
+        { t: "Assurance", p: "Assurance incluse dans le prix." + (ok(R.insuranceExcess) ? ` Franchise en cas de dommage : ${m(R.insuranceExcess)}.` : "") },
+        { t: "Carburant", p: R.fuel === "full" ? "Remis avec le plein, à rendre avec le plein." : "À rendre avec le même niveau de carburant qu'au départ." },
+        (ok(R.extraDriver) || ok(R.babySeat)) && { t: "Options", p: [ok(R.extraDriver) && `Conducteur supplémentaire : ${m(R.extraDriver)} / jour.`, ok(R.babySeat) && `Siège bébé : ${m(R.babySeat)} / jour.`].filter(Boolean).join(" ") },
+        { t: "Livraison", p: "Aéroport Djerba-Zarzis offert." + (ok(R.delivery) ? ` Hôtel ou autre adresse : ${m(R.delivery)}.` : "") },
+      ];
+      return list.filter(Boolean);
+    },
     free: "Offert",
   },
   en: {
@@ -65,14 +71,18 @@ export const DYN = {
     msgTitle: "New booking", msgCar: "Car", msgFrom: "Pickup", msgTo: "Return",
     msgName: "Name", msgPhone: "Phone", msgEmail: "Email", msgNotes: "Message", msgTotal: "Estimated total",
     msgRef: "Ref", msgSource: "Source", hello: "Hello, I would like to rent a car.",
-    rules: (R, m) => [
-      { t: "Deposit", p: `${m(R.deposit)} held at key handover, returned when the car is brought back.` },
-      { t: "Age & licence", p: `Minimum age ${R.minAge}, licence held for ${R.licenceYears} years, ID card or passport.` },
-      { t: "Insurance", p: `Insurance included in the price. Excess in case of damage: ${m(R.insuranceExcess)}.` },
-      { t: "Fuel", p: R.fuel === "full" ? "Delivered full, return it full." : "Return it with the same fuel level as at pickup." },
-      { t: "Extras", p: `Additional driver: ${m(R.extraDriver)} / day. Baby seat: ${m(R.babySeat)} / day.` },
-      { t: "Delivery", p: `Djerba-Zarzis airport free. Hotel or other address: ${m(R.delivery)}.` },
-    ],
+    rules: (R, m) => {
+      const ok = (v) => !String(v).startsWith("[");
+      const list = [
+        ok(R.deposit) && { t: "Deposit", p: `${m(R.deposit)} held at key handover, returned when the car is brought back.` },
+        { t: "Age & licence", p: [ok(R.minAge) && `Minimum age ${R.minAge}`, `licence held for ${R.licenceYears} years`, "ID card or passport"].filter(Boolean).join(", ").replace(/^./, (c) => c.toUpperCase()) + "." },
+        { t: "Insurance", p: "Insurance included in the price." + (ok(R.insuranceExcess) ? ` Excess in case of damage: ${m(R.insuranceExcess)}.` : "") },
+        { t: "Fuel", p: R.fuel === "full" ? "Delivered full, return it full." : "Return it with the same fuel level as at pickup." },
+        (ok(R.extraDriver) || ok(R.babySeat)) && { t: "Extras", p: [ok(R.extraDriver) && `Additional driver: ${m(R.extraDriver)} / day.`, ok(R.babySeat) && `Baby seat: ${m(R.babySeat)} / day.`].filter(Boolean).join(" ") },
+        { t: "Delivery", p: "Djerba-Zarzis airport free." + (ok(R.delivery) ? ` Hotel or other address: ${m(R.delivery)}.` : "") },
+      ];
+      return list.filter(Boolean);
+    },
     free: "Free",
   },
 };

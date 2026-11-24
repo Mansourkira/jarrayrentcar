@@ -221,3 +221,52 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .cs__list li[aria-selected="true"]::after { content: ""; position: absolute; right: 12px; top: 50%; width: 16px; height: 16px; margin-top: -8px;
   background: no-repeat center / 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230a6b73' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E"); }
 @keyframes csIn { from { opacity: 0; transform: translateY(-4px); } }
+
+/* ============================================================
+   Dark theme: the whole site shares the hero's night-blue look.
+   (The white search card in the hero is kept on purpose.)
+   ============================================================ */
+:root { --surface: #101e2a; --surface-2: #0d1a25; --line-dark: #223445; --text: #eaf1f5; --text-dim: #a9b9c5; }
+body { background: var(--ink); color: var(--text); color-scheme: dark; }
+a { color: var(--accent-soft); }
+.muted, .specs, .price span, .total span, .panel label, .how__grid p:last-child, .rule p, .faq p, .footer__inner, .done p { color: var(--text-dim); }
+.search { color-scheme: light; }
+.search__field { background: #f3f4f1; }
+
+.chip { background: var(--surface); border-color: var(--line-dark); color: var(--text); }
+.chip:hover { border-color: var(--accent-soft); }
+.chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.car { background: var(--surface); border-color: var(--line-dark); }
+.car:hover { box-shadow: 0 16px 36px rgba(0, 0, 0, .45); }
+.car.is-selected { border-color: var(--accent-soft); }
+.car__img { background: #162635; }
+.car__tag { color: var(--ink); }
+.car__foot { border-top-color: var(--line-dark); }
+.car.is-selected .pick { background: #fff; color: var(--ink); }
+
+.panel { background: var(--surface); border-color: var(--line-dark); }
+.panel__head { background: var(--surface-2); border-bottom: 1px solid var(--line-dark); }
+.panel input, .panel select, .panel textarea { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); color-scheme: dark; }
+.panel input:focus, .panel select:focus, .panel textarea:focus { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
+.panel .cs__btn { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); }
+.panel .cs.is-open .cs__btn, .panel .cs__btn:focus-visible { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
+.panel .cs__btn.is-placeholder { color: var(--text-dim); }
+.panel .cs__btn::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+.panel .cs__list { background: #13222f; border-color: #2a3d4e; color: var(--text); box-shadow: 0 18px 44px rgba(0, 0, 0, .55); }
+.panel .cs__list li.is-active { background: rgba(95, 208, 216, .12); }
+.panel .cs__list li[aria-selected="true"] { color: var(--accent-soft); }
+.panel .cs__list li[aria-selected="true"]::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E"); }
+.more summary { color: var(--accent-soft); }
+.total { background: var(--surface-2); }
+.total__big { border-top-color: #2a3d4e; }
+.total__big span { color: var(--text); }
+.form__error { color: #ff8a80; }
+.done__ref b { color: #fff; }
+
+.how { background: #0e1b26; border-block: 1px solid var(--line-dark); }
+.how__n { color: var(--accent-soft); }
+.rule, .faq { background: var(--surface); border: 1px solid var(--line-dark); }
+.faq summary::after { color: var(--accent-soft); }
+.contact { background: var(--surface); border: 1px solid var(--line-dark); }
+.footer { border-top-color: var(--line-dark); }
