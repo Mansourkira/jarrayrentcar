@@ -44,7 +44,11 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .btn--block { width: 100%; border-radius: 12px; min-height: 54px; font-size: 1.02rem; }
 
 /* ---------- Header / hero ---------- */
-.top { background: var(--ink); color: #fff; }
+.top { position: relative; isolation: isolate; background: linear-gradient(180deg, var(--ink), #1d3f5c 60%, #7a4a35); color: #fff; }
+.hero3d { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .8s; }
+.hero3d.is-ready { opacity: 1; }
+.top::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(11, 22, 32, .85), rgba(11, 22, 32, .35) 45%, rgba(11, 22, 32, 0) 75%), linear-gradient(0deg, var(--ink), rgba(11, 22, 32, 0) 90px); }
 .bar { position: sticky; top: 0; z-index: 50; background: var(--ink); transition: box-shadow .3s; }
 .bar.is-scrolled { box-shadow: 0 6px 24px rgba(0, 0, 0, .25); }
 .bar__inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
@@ -58,7 +62,7 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 6px; }
 .burger span { width: 22px; height: 2px; background: #fff; transition: transform .3s; }
 
-.hero { position: relative; padding: 44px 0 60px; }
+.hero { position: relative; z-index: 1; padding: 44px 0 clamp(210px, 30vw, 340px); }
 .hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.1rem, 5vw, 3.4rem); max-width: 780px; margin: 10px 0 28px; letter-spacing: -.01em; }
 .search { background: #fff; color: var(--ink); border-radius: 18px; padding: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
 .search__field { flex: 1 1 150px; display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border-radius: 12px; background: var(--ground); font-size: .75rem; font-weight: 800; color: var(--muted); }
@@ -196,7 +200,7 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
   .burger.is-open span:last-child { transform: translateY(-4px) rotate(-45deg); }
 }
 @media (max-width: 560px) {
-  .hero { padding: 28px 0 40px; }
+  .hero { padding: 28px 0 240px; }
   .showroom__info { gap: 14px; }
   .showroom__car { order: -1; width: 100%; }
   .fleet { padding: 40px 0 56px; }
@@ -213,7 +217,7 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .panel__form[hidden] { display: none; }
 
 /* ---------- Custom dropdown (src/scripts/select.js) ---------- */
-.cs__native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cs__native { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; opacity: 0; pointer-events: none; }
 .cs { position: relative; width: 100%; }
 .cs__btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; text-align: left; cursor: pointer;
   border: 0; background: transparent; padding: 2px 0; font-size: 1rem; font-weight: 600; color: var(--ink); }

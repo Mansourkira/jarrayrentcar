@@ -291,4 +291,17 @@ import { EN, DYN } from "../data/i18n.js";
   $$("a", nav).forEach((a) => a.addEventListener("click", () => toggleMenu(false)));
 
   applyLang();
+  // ---------- Hero 3D road scene (loaded after the page is interactive) ----------
+  const startHero = async () => {
+    const canvas = $("#heroCanvas");
+    try {
+      const { createHeroScene } = await import("./hero3d.js");
+      createHeroScene(canvas, $("#top"), $(".perks"));
+      canvas.classList.add("is-ready");
+    } catch (err) {
+      console.warn("3D hero disabled:", err);
+      canvas.remove();
+    }
+  };
+  if ("requestIdleCallback" in window) requestIdleCallback(startHero, { timeout: 2500 }); else setTimeout(startHero, 800);
 })();
