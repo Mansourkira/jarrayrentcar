@@ -348,3 +348,4 @@ html[data-theme="light"][dir="rtl"] .top::after { background: linear-gradient(27
 [dir="rtl"] .more summary { text-align: right; }
 [dir="rtl"] input[type="date"], [dir="rtl"] input[type="time"] { text-align: right; }
 [dir="rtl"] .car__foot, [dir="rtl"] .specs { direction: rtl; }
+[dir="rtl"] .fleet { flex-direction: row-reverse; } /* keep the booking form on the right in Arabic */
