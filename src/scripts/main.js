@@ -28,7 +28,6 @@ import { EN, DYN } from "../data/i18n.js";
     updateSummary();
     renderRules();
     setContactLinks();
-    showCar(frontCar);
   }
 
   $("#langToggle").addEventListener("click", () => {
@@ -116,7 +115,7 @@ import { EN, DYN } from "../data/i18n.js";
     updateSummary();
     const panel = $("#booking");
     const r = panel.getBoundingClientRect();
-    // Only scroll when the panel isn't already visible (mobile / showroom)
+    // Only scroll when the panel isn't already visible
     if (r.top > innerHeight - 120 || r.bottom < 120) panel.scrollIntoView({ behavior: "smooth", block: "start" });
     panel.classList.remove("flash");
     void panel.offsetWidth;
@@ -237,44 +236,6 @@ import { EN, DYN } from "../data/i18n.js";
       btn.disabled = false; btn.textContent = label;
     }
   });
-
-  // ---------- 3D showroom (three.js loaded only when it nears the screen) ----------
-  let showroom = null;
-  let frontCar = CARS[0];
-  const showEl = $("#showroom");
-
-  function showCar(car) {
-    frontCar = car;
-    $("#showCat").textContent = t().cat[car.category];
-    $("#showName").textContent = car.name;
-    $("#showPrice").textContent = car.price;
-  }
-  showCar(frontCar);
-  $("#showPick").addEventListener("click", () => selectCar(frontCar.id));
-
-  const showIO = new IntersectionObserver(async ([entry]) => {
-    if (!entry.isIntersecting || showroom) return;
-    showIO.disconnect();
-    try {
-      const { createShowroom } = await import("./showroom.js");
-      showroom = createShowroom($("#stage"), CARS, {
-        onChange: showCar,
-        onPick: (car) => selectCar(car.id),
-        onTouch: () => showEl.classList.add("is-touched"),
-      });
-      $("#showPrev").addEventListener("click", () => showroom.step(-1));
-      $("#showNext").addEventListener("click", () => showroom.step(1));
-    } catch (err) {
-      console.warn("3D showroom disabled:", err);
-      showEl.classList.add("no-webgl");
-      // Without WebGL the arrows still cycle through the cars
-      let i = 0;
-      const cycle = (n) => { i = (i + n + CARS.length) % CARS.length; showCar(CARS[i]); };
-      $("#showPrev").addEventListener("click", () => cycle(-1));
-      $("#showNext").addEventListener("click", () => cycle(1));
-    }
-  }, { rootMargin: "300px" });
-  showIO.observe(showEl);
 
   // ---------- Header, menu ----------
   const bar = $("#bar");

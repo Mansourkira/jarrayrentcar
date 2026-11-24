@@ -202,7 +202,7 @@ export function createHeroScene(canvas, header, perks) {
   scene.add(car);
 
   // ---------- Sizing & camera ----------
-  let W = 1, H = 1, horizonFrac = 0.6, camX = 0, targetCamX = 0;
+  let W = 1, H = 1, horizonFrac = 0.6, camX = 0;
   function resize() {
     W = header.clientWidth; H = header.clientHeight;
     renderer.setSize(W, H, false);
@@ -228,7 +228,9 @@ export function createHeroScene(canvas, header, perks) {
     camera.lookAt(camX * 0.4, cy + Math.tan(pitch) * dist, camera.position.z - dist);
   }
 
-  addEventListener("pointermove", (e) => { targetCamX = (e.clientX / innerWidth - 0.5) * 1.6; }, { passive: true });
+  // Steer the car with the pointer (mouse or touch drag): left/right across the road
+  let steer = 0.43, carX = 1.0;
+  addEventListener("pointermove", (e) => { steer = (e.clientX / innerWidth - 0.5) * 2; }, { passive: true });
 
   // ---------- Loop ----------
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -246,12 +248,18 @@ export function createHeroScene(canvas, header, perks) {
     for (const p of palms) { p.position.z += speed * dt; if (p.position.z > 14) p.position.z -= SPAN; }
     wheels.forEach((w) => (w.rotation.x -= (speed * dt) / 0.37));
 
-    car.position.x = 1.0 + Math.sin(t * 0.5) * 0.18;
+    const wantX = THREE.MathUtils.clamp(steer * 2.3, -2.4, 2.4) + Math.sin(t * 0.5) * 0.08;
+    const dx = (wantX - carX) * Math.min(1, dt * 3);
+    carX += dx;
+    car.position.x = carX;
     car.position.y = Math.sin(t * 9) * 0.008;
-    car.rotation.y = Math.cos(t * 0.5) * 0.02;
+    const vel = dx / Math.max(dt, 0.001); // sideways speed, independent of frame rate
+    const k = Math.min(1, dt * 8);
+    car.rotation.y += (THREE.MathUtils.clamp(-vel * 0.09, -0.28, 0.28) - car.rotation.y) * k; // nose turns into the move
+    car.rotation.z += (THREE.MathUtils.clamp(-vel * 0.015, -0.05, 0.05) - car.rotation.z) * k; // slight body roll
     sun.position.y = 5 + Math.sin(t * 0.1) * 0.4;
 
-    camX += (targetCamX - camX) * 0.03;
+    camX += (carX * 0.35 - camX) * 0.04;
     placeCamera(scrollP);
     renderer.render(scene, camera);
     schedule();

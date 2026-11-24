@@ -72,23 +72,6 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 .perks { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 20px; color: var(--on-dark); font-weight: 600; font-size: .9rem; }
 .perks li::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-soft); margin-right: 8px; vertical-align: middle; }
 
-/* ---------- Showroom ---------- */
-.showroom { background: linear-gradient(var(--ink), var(--ink-2)); color: #fff; padding-bottom: 36px; border-top: 1px solid #1f2f3c; }
-.showroom__stage { position: relative; height: clamp(300px, 46vw, 520px); cursor: grab; touch-action: pan-y; }
-.showroom__stage:active { cursor: grabbing; }
-.showroom__stage canvas { display: block; width: 100%; height: 100%; }
-.showroom__hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); font-size: .8rem; color: var(--on-dark); pointer-events: none; transition: opacity .6s; }
-.showroom.is-touched .showroom__hint { opacity: 0; }
-.showroom.no-webgl .showroom__stage { display: none; }
-.showroom__info { display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; text-align: center; }
-.showroom__car { min-width: 240px; }
-.showroom__car h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 4px 0; }
-.showroom__car p { color: var(--on-dark); }
-.showroom__car b { color: #fff; font-family: var(--display); font-size: 1.3rem; }
-.showroom__cat { display: inline-block; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-soft); }
-.round { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #3a4a57; background: transparent; color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .2s; }
-.round:hover { background: #1f2f3c; }
-
 /* ---------- Fleet ---------- */
 .fleet { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding: 56px 0 72px; }
 .fleet__list { flex: 999 1 560px; min-width: 0; }
@@ -201,8 +184,6 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 }
 @media (max-width: 560px) {
   .hero { padding: 28px 0 240px; }
-  .showroom__info { gap: 14px; }
-  .showroom__car { order: -1; width: 100%; }
   .fleet { padding: 40px 0 56px; }
 }
 

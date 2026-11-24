@@ -1,11 +1,10 @@
 // English translations. French is the default text written in index.astro.
 export const EN = {
-  "nav.showroom": "Showroom", "nav.fleet": "Cars", "nav.how": "Conditions", "nav.faq": "FAQ", "nav.contact": "Contact",
+  "nav.fleet": "Cars", "nav.how": "Conditions", "nav.faq": "FAQ", "nav.contact": "Contact",
   "hero.eyebrow": "Djerba · Airport & hotels",
   "hero.title": "Your car in Djerba, booked in 2 minutes.",
   "search.cta": "See the cars",
   "trust.1": "Unlimited mileage", "trust.2": "Insurance included", "trust.3": "Free airport delivery", "trust.4": "Free cancellation 48h",
-  "show.hint": "Drag to explore the fleet", "show.pick": "Book this one",
   "fleet.title": "Our cars", "fleet.sub": "price per day, all included",
   "cat.all": "All", "cat.eco": "Economy", "cat.compact": "Compact", "cat.suv": "SUV", "cat.premium": "Premium",
   "book.eyebrow": "Your booking", "book.noCar": "Choose a car", "book.perDayShort": "DT / day",

@@ -9,7 +9,6 @@ import Layout from "../layouts/Layout.astro";
       <div class="container bar__inner">
         <a href="#top" class="logo"><img class="logo__img" src="/images/logo-192.png" alt="Jarray Rent a Car" width="48" height="48"><span class="logo__txt">Jarray Rent Car</span></a>
         <nav class="nav" id="nav">
-          <a href="#showroom" data-i18n="nav.showroom">Showroom</a>
           <a href="#fleet" data-i18n="nav.fleet">Voitures</a>
           <a href="#conditions" data-i18n="nav.how">Conditions</a>
           <a href="#faq" data-i18n="nav.faq">FAQ</a>
@@ -47,23 +46,6 @@ import Layout from "../layouts/Layout.astro";
   </header>
 
   <main>
-    <!-- ===== 3D SHOWROOM ===== -->
-    <section class="showroom" id="showroom" aria-label="Showroom 3D">
-      <div class="showroom__stage" id="stage">
-        <p class="showroom__hint" data-i18n="show.hint">Glissez pour explorer la flotte</p>
-      </div>
-      <div class="container showroom__info">
-        <button class="round" id="showPrev" aria-label="Previous car"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <div class="showroom__car" aria-live="polite">
-          <span class="showroom__cat" id="showCat"></span>
-          <h2 id="showName">—</h2>
-          <p><b id="showPrice">—</b> <span data-i18n="book.perDayShort">DT / jour</span></p>
-        </div>
-        <button class="btn btn--accent" id="showPick" data-i18n="show.pick">Réserver celle-ci</button>
-        <button class="round" id="showNext" aria-label="Next car"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
-    </section>
-
     <!-- ===== FLEET + BOOKING ===== -->
     <section class="container fleet" id="fleet">
       <div class="fleet__list">
