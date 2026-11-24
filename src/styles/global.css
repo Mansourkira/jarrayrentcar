@@ -14,7 +14,7 @@
   --wa: #1f9d55;
   --wa-dark: #188346;
   --radius: 16px;
-  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --display: "Sora", system-ui, sans-serif;
   --body: "Manrope", system-ui, sans-serif;
 }
 
@@ -188,7 +188,7 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 }
 
 /* ---------- Booking confirmation ---------- */
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.hp { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; opacity: 0; pointer-events: none; }
 .done { padding: 36px 24px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .done[hidden] { display: none; }
 .done__icon { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 2rem; font-weight: 800; display: grid; place-items: center; }
@@ -223,50 +223,128 @@ h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw
 @keyframes csIn { from { opacity: 0; transform: translateY(-4px); } }
 
 /* ============================================================
-   Dark theme: the whole site shares the hero's night-blue look.
+   Dark theme (default; skipped when data-theme=light): the whole site shares the hero's night-blue look.
    (The white search card in the hero is kept on purpose.)
    ============================================================ */
 :root { --surface: #101e2a; --surface-2: #0d1a25; --line-dark: #223445; --text: #eaf1f5; --text-dim: #a9b9c5; }
-body { background: var(--ink); color: var(--text); color-scheme: dark; }
-a { color: var(--accent-soft); }
-.muted, .specs, .price span, .total span, .panel label, .how__grid p:last-child, .rule p, .faq p, .footer__inner, .done p { color: var(--text-dim); }
-.search { color-scheme: light; }
-.search__field { background: #f3f4f1; }
+:where(html:not([data-theme="light"])) body { background: var(--ink); color: var(--text); color-scheme: dark; }
+:where(html:not([data-theme="light"])) a { color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .muted,
+:where(html:not([data-theme="light"])) .specs,
+:where(html:not([data-theme="light"])) .price span,
+:where(html:not([data-theme="light"])) .total span,
+:where(html:not([data-theme="light"])) .panel label,
+:where(html:not([data-theme="light"])) .how__grid p:last-child,
+:where(html:not([data-theme="light"])) .rule p,
+:where(html:not([data-theme="light"])) .faq p,
+:where(html:not([data-theme="light"])) .footer__inner,
+:where(html:not([data-theme="light"])) .done p { color: var(--text-dim); }
+:where(html:not([data-theme="light"])) .search { color-scheme: light; }
+:where(html:not([data-theme="light"])) .search__field { background: #f3f4f1; }
+:where(html:not([data-theme="light"])) .chip { background: var(--surface); border-color: var(--line-dark); color: var(--text); }
+:where(html:not([data-theme="light"])) .chip:hover { border-color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
+:where(html:not([data-theme="light"])) .car { background: var(--surface); border-color: var(--line-dark); }
+:where(html:not([data-theme="light"])) .car:hover { box-shadow: 0 16px 36px rgba(0, 0, 0, .45); }
+:where(html:not([data-theme="light"])) .car.is-selected { border-color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .car__img { background: #162635; }
+:where(html:not([data-theme="light"])) .car__tag { color: var(--ink); }
+:where(html:not([data-theme="light"])) .car__foot { border-top-color: var(--line-dark); }
+:where(html:not([data-theme="light"])) .car.is-selected .pick { background: #fff; color: var(--ink); }
+:where(html:not([data-theme="light"])) .panel { background: var(--surface); border-color: var(--line-dark); }
+:where(html:not([data-theme="light"])) .panel__head { background: var(--surface-2); border-bottom: 1px solid var(--line-dark); }
+:where(html:not([data-theme="light"])) .panel input,
+:where(html:not([data-theme="light"])) .panel select,
+:where(html:not([data-theme="light"])) .panel textarea { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); color-scheme: dark; }
+:where(html:not([data-theme="light"])) .panel input:focus,
+:where(html:not([data-theme="light"])) .panel select:focus,
+:where(html:not([data-theme="light"])) .panel textarea:focus { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
+:where(html:not([data-theme="light"])) .panel .cs__btn { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); }
+:where(html:not([data-theme="light"])) .panel .cs.is-open .cs__btn,
+:where(html:not([data-theme="light"])) .panel .cs__btn:focus-visible { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
+:where(html:not([data-theme="light"])) .panel .cs__btn.is-placeholder { color: var(--text-dim); }
+:where(html:not([data-theme="light"])) .panel .cs__btn::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+:where(html:not([data-theme="light"])) .panel .cs__list { background: #13222f; border-color: #2a3d4e; color: var(--text); box-shadow: 0 18px 44px rgba(0, 0, 0, .55); }
+:where(html:not([data-theme="light"])) .panel .cs__list li.is-active { background: rgba(95, 208, 216, .12); }
+:where(html:not([data-theme="light"])) .panel .cs__list li[aria-selected="true"] { color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .panel .cs__list li[aria-selected="true"]::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E"); }
+:where(html:not([data-theme="light"])) .more summary { color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .total { background: var(--surface-2); }
+:where(html:not([data-theme="light"])) .total__big { border-top-color: #2a3d4e; }
+:where(html:not([data-theme="light"])) .total__big span { color: var(--text); }
+:where(html:not([data-theme="light"])) .form__error { color: #ff8a80; }
+:where(html:not([data-theme="light"])) .done__ref b { color: #fff; }
+:where(html:not([data-theme="light"])) .how { background: #0e1b26; border-block: 1px solid var(--line-dark); }
+:where(html:not([data-theme="light"])) .how__n { color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .rule,
+:where(html:not([data-theme="light"])) .faq { background: var(--surface); border: 1px solid var(--line-dark); }
+:where(html:not([data-theme="light"])) .faq summary::after { color: var(--accent-soft); }
+:where(html:not([data-theme="light"])) .contact { background: var(--surface); border: 1px solid var(--line-dark); }
+:where(html:not([data-theme="light"])) .footer { border-top-color: var(--line-dark); }
 
-.chip { background: var(--surface); border-color: var(--line-dark); color: var(--text); }
-.chip:hover { border-color: var(--accent-soft); }
-.chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* ============================================================
+   Light mode: the hero turns into a bright daytime scene (3D scene switches too)
+   ============================================================ */
+html[data-theme="light"] .top { background: linear-gradient(180deg, #8fc6ee, #cfe6f7 60%, #f1ead2); color: #0b2a44; }
+html[data-theme="light"] .top::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .22) 45%, rgba(255, 255, 255, 0) 75%), linear-gradient(0deg, var(--ground), rgba(243, 244, 241, 0) 90px); }
+html[data-theme="light"] .bar { background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); }
+html[data-theme="light"] .bar.is-scrolled { box-shadow: 0 6px 24px rgba(11, 42, 68, .12); }
+html[data-theme="light"] .logo { color: #0b2a44; }
+html[data-theme="light"] .logo__img { box-shadow: 0 0 0 1px #d5dfe6; }
+html[data-theme="light"] .nav a { color: #3b5870; }
+html[data-theme="light"] .nav a:hover { color: #0b2a44; }
+html[data-theme="light"] .eyebrow { color: var(--accent); }
+html[data-theme="light"] .hero h1 { color: #0b2a44; }
+html[data-theme="light"] .perks { color: #1d4561; }
+html[data-theme="light"] .perks li::before { background: var(--accent); }
+html[data-theme="light"] .search { box-shadow: 0 14px 34px rgba(11, 42, 68, .18); }
+html[data-theme="light"] .burger span { background: #0b2a44; }
+@media (max-width: 860px) {
+  html[data-theme="light"] .nav { background: #fff; border-top-color: #e1e4e0; }
+  html[data-theme="light"] .nav a { border-bottom-color: #e1e4e0; }
+}
 
-.car { background: var(--surface); border-color: var(--line-dark); }
-.car:hover { box-shadow: 0 16px 36px rgba(0, 0, 0, .45); }
-.car.is-selected { border-color: var(--accent-soft); }
-.car__img { background: #162635; }
-.car__tag { color: var(--ink); }
-.car__foot { border-top-color: var(--line-dark); }
-.car.is-selected .pick { background: #fff; color: var(--ink); }
+/* ---------- Theme + language switches ---------- */
+.theme-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #3a4a57; background: transparent; color: #fff; cursor: pointer; display: grid; place-items: center; transition: background .2s, transform .3s; }
+.theme-btn:hover { background: rgba(255, 255, 255, .1); }
+.theme-btn:active { transform: rotate(25deg) scale(.94); }
+.theme-btn .i-sun { display: none; }
+html[data-theme="light"] .theme-btn { border-color: #b9ccd9; color: #0b2a44; }
+html[data-theme="light"] .theme-btn:hover { background: rgba(11, 42, 68, .06); }
+html[data-theme="light"] .theme-btn .i-sun { display: block; }
+html[data-theme="light"] .theme-btn .i-moon { display: none; }
+.langs { display: flex; padding: 3px; border-radius: 999px; border: 1px solid #3a4a57; }
+.langs button { min-width: 38px; height: 36px; padding: 0 8px; border: 0; border-radius: 999px; background: transparent; color: var(--on-dark); font-weight: 800; font-size: .8rem; cursor: pointer; transition: background .25s, color .25s; }
+.langs button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.langs button[lang="ar"] { font-family: "Cairo", sans-serif; font-size: .95rem; }
+html[data-theme="light"] .langs { border-color: #b9ccd9; }
+html[data-theme="light"] .langs button { color: #3b5870; }
+html[data-theme="light"] .langs button[aria-pressed="true"] { color: #fff; }
+html.theme-fade, html.theme-fade * { transition: background-color .6s ease, color .6s ease, border-color .6s ease, box-shadow .6s ease !important; }
 
-.panel { background: var(--surface); border-color: var(--line-dark); }
-.panel__head { background: var(--surface-2); border-bottom: 1px solid var(--line-dark); }
-.panel input, .panel select, .panel textarea { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); color-scheme: dark; }
-.panel input:focus, .panel select:focus, .panel textarea:focus { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
-.panel .cs__btn { background: var(--surface-2); border-color: #2a3d4e; color: var(--text); }
-.panel .cs.is-open .cs__btn, .panel .cs__btn:focus-visible { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(95, 208, 216, .18); }
-.panel .cs__btn.is-placeholder { color: var(--text-dim); }
-.panel .cs__btn::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
-.panel .cs__list { background: #13222f; border-color: #2a3d4e; color: var(--text); box-shadow: 0 18px 44px rgba(0, 0, 0, .55); }
-.panel .cs__list li.is-active { background: rgba(95, 208, 216, .12); }
-.panel .cs__list li[aria-selected="true"] { color: var(--accent-soft); }
-.panel .cs__list li[aria-selected="true"]::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235fd0d8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E"); }
-.more summary { color: var(--accent-soft); }
-.total { background: var(--surface-2); }
-.total__big { border-top-color: #2a3d4e; }
-.total__big span { color: var(--text); }
-.form__error { color: #ff8a80; }
-.done__ref b { color: #fff; }
+/* ---------- Language switch animation ---------- */
+.swap-in { animation: swapIn .6s cubic-bezier(.2, .7, .2, 1) both; animation-delay: var(--d, 0ms); }
+@keyframes swapIn { from { opacity: 0; transform: translateX(var(--sx, 16px)); filter: blur(6px); } }
+[dir="rtl"] .swap-in { --sx: -16px; }
+.hero h1.swap-in { animation: none; }
+.hero h1 .w { display: inline-block; }
+.hero h1.swap-in .w { animation: wordIn .75s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i) * 80ms); }
+@keyframes wordIn { from { opacity: 0; transform: translateY(.45em) scale(.96); filter: blur(8px); } }
 
-.how { background: #0e1b26; border-block: 1px solid var(--line-dark); }
-.how__n { color: var(--accent-soft); }
-.rule, .faq { background: var(--surface); border: 1px solid var(--line-dark); }
-.faq summary::after { color: var(--accent-soft); }
-.contact { background: var(--surface); border: 1px solid var(--line-dark); }
-.footer { border-top-color: var(--line-dark); }
+/* ---------- Arabic / right-to-left ---------- */
+[lang="ar"] { --display: "Cairo", system-ui, sans-serif; --body: "Cairo", system-ui, sans-serif; }
+[lang="ar"] body { line-height: 1.7; }
+[lang="ar"] .hero h1 { letter-spacing: 0; line-height: 1.25; }
+[lang="ar"] .eyebrow, [lang="ar"] .total span, [lang="ar"] .panel label { letter-spacing: 0; }
+[dir="rtl"] .top::after { background: linear-gradient(270deg, rgba(11, 22, 32, .85), rgba(11, 22, 32, .35) 45%, rgba(11, 22, 32, 0) 75%), linear-gradient(0deg, var(--ink), rgba(11, 22, 32, 0) 90px); }
+html[data-theme="light"][dir="rtl"] .top::after { background: linear-gradient(270deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .22) 45%, rgba(255, 255, 255, 0) 75%), linear-gradient(0deg, var(--ground), rgba(243, 244, 241, 0) 90px); }
+[dir="rtl"] .perks li::before { margin-right: 0; margin-left: 8px; }
+[dir="rtl"] .car__tag { left: auto; right: 12px; }
+[dir="rtl"] .wa-float { right: auto; left: 20px; }
+[dir="rtl"] .cs__btn { text-align: right; }
+[dir="rtl"] .cs__list li { padding: 11px 12px 11px 38px; }
+[dir="rtl"] .cs__list li[aria-selected="true"]::after { right: auto; left: 12px; }
+[dir="rtl"] .more summary { text-align: right; }
+[dir="rtl"] input[type="date"], [dir="rtl"] input[type="time"] { text-align: right; }
+[dir="rtl"] .car__foot, [dir="rtl"] .specs { direction: rtl; }

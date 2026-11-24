@@ -1,40 +1,77 @@
 import { AGENCY, LOCATIONS, CARS, RENTAL } from "../data/config.js";
 import { getSource } from "./tracking.js";
 import { enhanceSelects } from "./select.js";
-import { EN, DYN } from "../data/i18n.js";
+import { EN, AR, DYN } from "../data/i18n.js";
 
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
+  const LANGS = ["fr", "en", "ar"];
   let lang = "fr";
-  try { lang = localStorage.getItem("lang") || "fr"; } catch {}
+  try { const l = localStorage.getItem("lang"); if (LANGS.includes(l)) lang = l; } catch {}
   const t = () => DYN[lang];
   const carById = (id) => CARS.find((c) => c.id === id);
+  const root = document.documentElement;
+  let hero = null; // 3D hero controls (theme / direction), set once the scene has loaded
 
   // ---------- i18n ----------
   const original = new Map();
   $$("[data-i18n]").forEach((el) => original.set(el, el.innerHTML));
+  const DICT = { fr: null, en: EN, ar: AR };
 
-  function applyLang() {
-    document.documentElement.lang = lang;
-    $("#langToggle").textContent = lang === "fr" ? "EN" : "FR";
+  function applyLang(animate = false) {
+    root.lang = lang;
+    root.dir = lang === "ar" ? "rtl" : "ltr";
+    $$("#langs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    const dict = DICT[lang];
     original.forEach((html, el) => {
       const key = el.dataset.i18n;
-      el.innerHTML = lang === "en" && EN[key] ? EN[key] : html;
+      el.innerHTML = dict && dict[key] ? dict[key] : html;
     });
     renderCars();
     fillCarSelect();
     updateSummary();
     renderRules();
     setContactLinks();
+    if (hero) hero.setRtl(lang === "ar");
+    if (animate) playSwapAnimation();
   }
 
-  $("#langToggle").addEventListener("click", () => {
-    lang = lang === "fr" ? "en" : "fr";
+  // Text slides/blurs in after a language switch; the headline animates word by word
+  let swapTimer = 0;
+  function playSwapAnimation() {
+    const h1 = $(".hero h1");
+    h1.innerHTML = h1.textContent.trim().split(/\s+/).map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(" ");
+    const els = [...$$("[data-i18n]"), ...$$("#rules .rule")].filter((el) => el !== h1);
+    els.forEach((el, i) => { el.style.setProperty("--d", Math.min(i * 14, 420) + "ms"); el.classList.add("swap-in"); });
+    h1.classList.add("swap-in");
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(() => {
+      els.forEach((el) => { el.classList.toggle("swap-in", false); el.style.removeProperty("--d"); });
+      h1.classList.toggle("swap-in", false);
+    }, 1500);
+  }
+
+  $("#langs").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-lang]");
+    if (!b || b.dataset.lang === lang) return;
+    lang = b.dataset.lang;
     try { localStorage.setItem("lang", lang); } catch {}
-    applyLang();
+    applyLang(true);
   });
+
+  // ---------- Light / dark theme ----------
+  function setTheme(next, animate = true) {
+    if (animate) {
+      root.classList.add("theme-fade");
+      setTimeout(() => root.classList.toggle("theme-fade", false), 900);
+    }
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch {}
+    if (hero) hero.setTheme(next, animate);
+  }
+  $("#themeToggle").addEventListener("click", () => setTheme(root.dataset.theme === "light" ? "dark" : "light"));
 
   // ---------- Agency info ----------
   const waLink = (text = "") => `https://wa.me/${AGENCY.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
@@ -257,7 +294,7 @@ import { EN, DYN } from "../data/i18n.js";
     const canvas = $("#heroCanvas");
     try {
       const { createHeroScene } = await import("./hero3d.js");
-      createHeroScene(canvas, $("#top"), $(".perks"));
+      hero = createHeroScene(canvas, $("#top"), $(".perks"), { theme: root.dataset.theme, rtl: lang === "ar" });
       canvas.classList.add("is-ready");
     } catch (err) {
       console.warn("3D hero disabled:", err);

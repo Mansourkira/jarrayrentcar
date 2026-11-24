@@ -33,7 +33,7 @@ async function createBooking(request, env) {
   const days = Math.max(1, Math.ceil((ra - pa) / 864e5));
   if (days > 90) return json({ error: "invalid" }, 400);
   const total = days * car.price; // computed server-side from the real price list
-  const lang = b.lang === "en" ? "en" : "fr";
+  const lang = b.lang === "en" || b.lang === "ar" ? b.lang : "fr";
 
   for (let i = 0; i < 3; i++) {
     const ref = makeRef();

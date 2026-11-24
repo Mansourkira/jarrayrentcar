@@ -26,6 +26,34 @@ export const EN = {
   "contact.title": "Contact", "contact.hours": "Open 24/7",
 };
 
+// Arabic translations (right-to-left)
+export const AR = {
+  "nav.fleet": "السيارات", "nav.how": "الشروط", "nav.faq": "الأسئلة الشائعة", "nav.contact": "اتصل بنا",
+  "hero.eyebrow": "جربة · المطار والفنادق",
+  "hero.title": "سيارتك في جربة، محجوزة في دقيقتين.",
+  "search.cta": "عرض السيارات",
+  "trust.1": "كيلومترات غير محدودة", "trust.2": "التأمين مشمول", "trust.3": "التوصيل المجاني إلى المطار", "trust.4": "إلغاء مجاني قبل 48 ساعة",
+  "fleet.title": "سياراتنا", "fleet.sub": "السعر لليوم، كل شيء مشمول",
+  "cat.all": "الكل", "cat.eco": "اقتصادية", "cat.compact": "صغيرة", "cat.suv": "دفع رباعي", "cat.premium": "فاخرة",
+  "book.eyebrow": "حجزك", "book.noCar": "اختر سيارة", "book.perDayShort": "د.ت / يوم",
+  "book.delivery": "التوصيل إلى المطار", "book.free": "مجاني", "book.total": "المجموع التقديري",
+  "book.note": "نعاود الاتصال بك بسرعة للتأكيد · الدفع عند استلام المفاتيح",
+  "form.car": "السيارة", "form.pickupLoc": "مكان الاستلام", "form.returnLoc": "مكان الإرجاع",
+  "form.pickupDate": "الاستلام", "form.returnDate": "الإرجاع", "form.pickupTime": "الوقت", "form.returnTime": "الوقت",
+  "form.name": "الاسم الكامل", "form.phone": "الهاتف / واتساب", "form.more": "خيارات إضافية (بريد إلكتروني، رحلة، مقعد أطفال…)",
+  "form.email": "البريد الإلكتروني", "form.notes": "رسالة", "form.submit": "أرسل طلبي",
+  "how.1t": "اختر", "how.1p": "سيارة، تواريخك، ومكان الاستلام.",
+  "how.2t": "أكّد", "how.2p": "نؤكد الحجز عبر واتساب أو الهاتف.",
+  "how.3t": "انطلق", "how.3p": "تسليم المفاتيح في المطار أو الفندق.",
+  "rules.title": "شروط الكراء", "rules.sub": "كل شيء واضح قبل الحجز: لا رسوم خفية.",
+  "faq.title": "الأسئلة الشائعة",
+  "faq.1q": "ما هي الوثائق المطلوبة؟", "faq.1a": "رخصة سياقة منذ سنتين على الأقل وبطاقة هوية (بطاقة التعريف أو جواز السفر).",
+  "faq.2q": "هل هناك ضمان مالي؟", "faq.2a": "نعم، يُؤخذ عند استلام المفاتيح ويُردّ عند إرجاع السيارة.",
+  "faq.3q": "هل يمكنني مغادرة الجزيرة؟", "faq.3a": "نعم، إلى أي مكان في تونس. يكفي إعلامنا عند الحجز.",
+  "faq.4q": "كيف أدفع؟", "faq.4a": "نقدًا (دينار أو يورو) أو بالبطاقة عند استلام السيارة.",
+  "contact.title": "اتصل بنا", "contact.hours": "مفتوح 24/7",
+};
+
 // Strings used by main.js
 export const DYN = {
   fr: {
@@ -84,5 +112,30 @@ export const DYN = {
       return list.filter(Boolean);
     },
     free: "Free",
+  },
+  ar: {
+    perDay: "/ يوم", choose: "اختر", selected: "مختارة", day: "يوم", days: "أيام", select: "— اختر سيارة —",
+    noCar: "اختر سيارة", cars: "سيارات متاحة",
+    seats: "مقاعد", deposit: "الضمان", auto: "أوتوماتيك", manual: "عادية", essence: "بنزين", diesel: "ديزل", ac: "مكيّف",
+    cat: { eco: "اقتصادية", compact: "صغيرة", suv: "دفع رباعي", premium: "فاخرة" },
+    sending: "جارٍ الإرسال…", errServer: "تعذّر إرسال الطلب. أعد المحاولة أو اتصل بنا على",
+    doneTitle: "شكرًا، تم استلام طلبك!", doneText: "سنتصل بك قريبًا جدًا لتأكيد حجزك.",
+    doneRef: "المرجع:", doneAgain: "طلب آخر",
+    errRequired: "يرجى ملء جميع الحقول الإلزامية.",
+    errDates: "يجب أن يكون تاريخ الإرجاع بعد تاريخ الاستلام.",
+    hello: "مرحبًا، أودّ كراء سيارة.",
+    rules: (R, m) => {
+      const ok = (v) => !String(v).startsWith("[");
+      const list = [
+        ok(R.deposit) && { t: "الضمان", p: `${m(R.deposit)} تُحجز عند استلام المفاتيح وتُردّ عند إرجاع السيارة.` },
+        { t: "العمر والرخصة", p: [ok(R.minAge) && `الحد الأدنى للعمر ${R.minAge} سنة`, `رخصة سياقة منذ ${R.licenceYears} سنوات`, "بطاقة هوية (بطاقة التعريف أو جواز السفر)"].filter(Boolean).join("، ") + "." },
+        { t: "التأمين", p: "التأمين مشمول في السعر." + (ok(R.insuranceExcess) ? ` المبلغ المتحمَّل عند الضرر: ${m(R.insuranceExcess)}.` : "") },
+        { t: "الوقود", p: R.fuel === "full" ? "تُسلَّم بخزان ممتلئ وتُرجَع بخزان ممتلئ." : "تُرجَع بنفس مستوى الوقود عند الاستلام." },
+        (ok(R.extraDriver) || ok(R.babySeat)) && { t: "الخيارات", p: [ok(R.extraDriver) && `سائق إضافي: ${m(R.extraDriver)} / يوم.`, ok(R.babySeat) && `مقعد أطفال: ${m(R.babySeat)} / يوم.`].filter(Boolean).join(" ") },
+        { t: "التوصيل", p: "مطار جربة جرجيس مجاني." + (ok(R.delivery) ? ` الفندق أو عنوان آخر: ${m(R.delivery)}.` : "") },
+      ];
+      return list.filter(Boolean);
+    },
+    free: "مجاني",
   },
 };

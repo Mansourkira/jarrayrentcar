@@ -7,7 +7,7 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,10 +15,18 @@ const {
   <meta name="description" content={description}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
+  <script is:inline>
+    // Apply the saved theme/language before first paint (no flash). Default: dark, French.
+    try {
+      var d = document.documentElement, th = localStorage.getItem("theme"), lg = localStorage.getItem("lang");
+      d.dataset.theme = th === "light" ? "light" : "dark";
+      if (lg === "ar" || lg === "en") { d.lang = lg; d.dir = lg === "ar" ? "rtl" : "ltr"; }
+    } catch (e) { document.documentElement.dataset.theme = "dark"; }
+  </script>
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   {AGENCY.cfAnalyticsToken && (
     <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: AGENCY.cfAnalyticsToken })}></script>
   )}
